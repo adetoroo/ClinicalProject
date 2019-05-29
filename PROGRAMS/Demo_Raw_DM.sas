@@ -17,23 +17,39 @@ MODIFICATION HISTORY:
 <Description>
 ******************************************;
 /*Create a library to store Demographic datasets created*/
-libname Raw "C:\Users\User\Google Drive\SAS_Programming_Training\Indian_Online_Training\Clinical\LIVE_PROJECT\QPS3\RAW";
+libname Raw "/home/adetoroseyi0/mylib/Clinical Project/QPS3/Raw";
 
 /*Import excel dataset and convert it to sas datasets*/
 
-proc import datafile = "C:\Users\User\Google Drive\SAS_Programming_Training\Indian_Online_Training\Clinical\LIVE_PROJECT\QPS3\RAW\Demo_Raw.xlsx" out=raw.demo_raw dbms=xlsx ;
-run;
+PROC IMPORT datafile = "/home/adetoroseyi0/mylib/Clinical Project/QPS3/Raw/Demo_Raw.xlsx" out=raw.demo_raw dbms=xlsx replace;
+RUN;
 
 /*round up some variables*/
 
-data Raw.Demo_raw1;
-set raw.demo_raw;
-format AGEU 2.0 HT 3.0 WT 3.0;
-run;
+DATA Demo_raw1;
+SET raw.demo_raw;
+FORMAT AGEU 2.0 HT 3.0 WT 3.0;
+RUN;
 
-proc import datafile = "C:\Users\User\Google Drive\SAS Programming Training\Indian-Online Training\Clinical\LIVE PROJECT\QPS3\RAW\exposure_Raw.xlsx" out=raw.exposure_raw dbms=xlsx replace;
-run;
+PROC PRINT DATA=Raw.Demo_raw1;
+RUN;
 
-proc import datafile = "C:\Users\User\Google Drive\SAS Programming Training\Indian-Online Training\Clinical\LIVE PROJECT\QPS3\RAW\rnd.xlsx" out=raw.rnd dbms=xlsx replace;
-run;
+
+/* Import Exposure datasets */
+
+PROC IMPORT DATAFILE = "/home/adetoroseyi0/mylib/Clinical Project/QPS3/Raw/Exposure_Raw.xlsx" out=raw.exposure_raw dbms=xlsx replace;
+RUN;
+
+/* Import randomized datasets */
+
+PROC IMPORT DATAFILE = "/home/adetoroseyi0/mylib/Clinical Project/QPS3/Raw/RND.xlsx" out=Raw.rnd dbms=xlsx replace;
+RUN;
+
+
+PROC IMPORT DATAFILE = "/home/adetoroseyi0/mylib/Clinical Project/QPS3/Raw/Vital_Signs.xlsx" out=Raw.Vital_Signs dbms=xlsx replace;
+RUN;
+
+PROC IMPORT DATAFILE = "/home/adetoroseyi0/mylib/Clinical Project/QPS3/Raw/vital_signs11.xlsx" out=Raw.Vital_Signs2 dbms=xlsx replace;
+RUN;
+
 
