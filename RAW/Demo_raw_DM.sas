@@ -26,7 +26,7 @@ run;
 
 /*round up some variables*/
 
-data Demo_raw1;
+data Raw.Demo_raw1;
 set Raw.Demo_raw;
 format AGEU 2.0 HT 3.0 WT 3.0;
 output;
@@ -38,5 +38,3 @@ run;
 proc import datafile = "C:\PROJECT\QPS3\RAW\rnd.xlsx" out=raw.rnd dbms=xlsx replace;
 run;
 
-proc import datafile = "C:\PROJECT\QPS3\RAW\lab_raw.xlsx" out=raw.LB dbms=xlsx replace;
-run;
