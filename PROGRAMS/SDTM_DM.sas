@@ -82,37 +82,28 @@ RUN;
 
 /*Merging clean-up exposure dataset with Clean-up Demo_Raw Datasets*/
 
-PROC SORT DATA=DM4;
+PROC SORT DATA=DM4 NODUPKEY;
 BY USUBJID;
 RUN;
 
-PROC SORT DATA=EX1;
+PROC SORT DATA=EX1 NODUPKEY;
 BY USUBJID;
 RUN;
 
 DATA DM5;
-MERGE DM4 (in=a) EX1 (in=b);
+MERGE DM4(IN=A) EX1;
 BY USUBJID;
-If a;
+IF A;
 RUN;
 
-/*one to one proc sql could be used to create the DM7 above*/
-
-/*PROC SQL;*/
-/*CREATE TABLE DM8 as*/
-/*SELECT **/
-/*FROM DM6, EX1*/
-/*WHERE DM6.USUBJID=EX1.USUBJID*/
-/*ORDER BY DM6.USUBJID;*/
-/*QUIT;*/
 
 /*Merging Randomized datasets with the raw datasets*/
 
-PROC SORT DATA=DM5;
+PROC SORT DATA=DM5 NODUPKEY;
 BY SUBJID;
 RUN;
 
-PROC SORT DATA=raw.rnd;
+PROC SORT DATA=raw.rnd NODUPKEY;
 BY SUBJID;
 RUN;
 
@@ -204,22 +195,6 @@ QEVAL "Evaluator" Length=40
 FROM SUPPDM;
 QUIT;
 
-/*Creating the datasets lable using data-step*/
-/*DATA SUPPDM1;*/
-/*SET SUPPDM;*/
-/*attrib*/
-/*STUDYID label='Study Identifier' Length=$8.*/
-/*RDOMAIN label='Related Domain Abbreviation' Length=$2.*/
-/*USUBJID label='Unique Subject Identifier' Length=$50.*/
-/*IDVAR label='Identifying Variable' Length=$8.*/
-/*IDVARVAL label='Identifying Variable Value' Length=$40.*/
-/*QNAM label= 'Qualifier Variable Name' Length=$8.*/
-/*QLABEL label='Qualifier Variable Label' Length=$40.*/
-/*QVAL label='Data Value' Length=$200.*/
-/*QORIG label='Origin' Length=$20.*/
-/*QEVAL label="Evaluator" Length=$40.;*/
-/*;*/
-/*RUN;*/
 
 /*Move the supp dm dataset to SDTM folder*/
 
